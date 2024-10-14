@@ -1,0 +1,6 @@
+{
+  "AppLayerSettings": {
+    "DelayEmulationMaxSec": 5,
+    "UseRedisCache": false
+  }
+}
