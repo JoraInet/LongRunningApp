@@ -1,6 +1,7 @@
 ﻿using LongRunningApp.Application.Models;
 using Microsoft.Extensions.Options;
 using System.Runtime.CompilerServices;
+using System.Text;
 
 namespace LongRunningApp.Application.Services;
 
@@ -46,6 +47,10 @@ public sealed class TextProcessingService(IOptions<AppLayerSettings> options) : 
                           .ThenBy(x => x.Key)
                           .Select(x => x.Key.ToString() + x.Count.ToString())
                           .ToList();
+        processedResult.Add("/");
+
+        var plainTextBytes = Encoding.UTF8.GetBytes(text);
+        processedResult.Add(Convert.ToBase64String(Encoding.UTF8.GetBytes(text)));
 
         return string.Join("", processedResult);
     }

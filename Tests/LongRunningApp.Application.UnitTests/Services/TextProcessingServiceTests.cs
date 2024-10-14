@@ -19,7 +19,7 @@ public sealed class TextProcessingServiceTests
 
     [TestMethod]
     [DataRow("", "")]
-    [DataRow("Hello, World!", " 1,1!1d1e1H1r1W1o2l3")]
+    [DataRow("Hello, World!", " 1,1!1d1e1H1r1W1o2l3/SGVsbG8sIFdvcmxkIQ==")]
     public async Task ProcessText_WithText_ShouldReturnEmptyResult(string sourceText, string expectedResult)
     {
         //Arrange
@@ -56,7 +56,7 @@ public sealed class TextProcessingServiceTests
         stopwatch.Stop();
 
         //Assert
-        Assert.AreEqual("s1x1e2t2T2", processedResult);
+        Assert.AreEqual("s1x1e2t2T2/VGVzdFRleHQ=", processedResult);
         Assert.IsTrue(stopwatch.Elapsed.TotalSeconds > 1);
     }
 
