@@ -56,7 +56,7 @@ public sealed class TextProcessingServiceTests
         stopwatch.Stop();
 
         //Assert
-        Assert.AreEqual("s1x1e2t2T2/VGVzdFRleHQ=", processedResult);
+        Assert.AreEqual("T2e2s1t2x1/VGVzdFRleHQ=", processedResult);
         Assert.IsTrue(stopwatch.Elapsed.TotalSeconds > 1);
     }
 
@@ -73,7 +73,7 @@ public sealed class TextProcessingServiceTests
         await foreach (var currentProcessingResult in service.ProcessText("TestText", cts.Token))
         {
             processedResult += currentProcessingResult;
-            if (processedResult == "s1x1e")
+            if (processedResult == "T2e2s1")
             {
                 cts.Cancel();
             }
@@ -81,6 +81,6 @@ public sealed class TextProcessingServiceTests
 
         //Assert
         Assert.IsTrue(cts.IsCancellationRequested);
-        Assert.AreEqual("s1x1e", processedResult);
+        Assert.AreEqual("T2e2s1", processedResult);
     }
 }
