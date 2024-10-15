@@ -11,13 +11,7 @@ public sealed class TextProcessingService(IOptions<AppLayerSettings> options) : 
 
     public async IAsyncEnumerable<string> ProcessText(string text, [EnumeratorCancellation] CancellationToken cancellation = default)
     {
-        if (string.IsNullOrWhiteSpace(text))
-        {
-            yield return string.Empty;
-            yield break;
-        }
-
-        if (cancellation.IsCancellationRequested)
+        if (string.IsNullOrWhiteSpace(text) || cancellation.IsCancellationRequested)
         {
             yield return string.Empty;
             yield break;
@@ -42,9 +36,9 @@ public sealed class TextProcessingService(IOptions<AppLayerSettings> options) : 
     private static string PerformedText(string text)
     {
         var processedResult = text.GroupBy(x => x)
-                          .Select(x => new { Key = x.Key.ToString(), Count = x.Count() })
-                          .OrderBy(x => x.Count)
-                          .ThenBy(x => x.Key)
+                          .Select(x => new { x.Key, Count = x.Count() })
+                          .OrderBy(x => x.Key)
+                          .ThenBy(x => x.Count)
                           .Select(x => x.Key.ToString() + x.Count.ToString())
                           .ToList();
         processedResult.Add("/");

@@ -19,7 +19,7 @@ public sealed class TextProcessingServiceTests
 
     [TestMethod]
     [DataRow("", "")]
-    [DataRow("Hello, World!", " 1,1!1d1e1H1r1W1o2l3/SGVsbG8sIFdvcmxkIQ==")]
+    [DataRow("Hello, World!", " 1!1,1H1W1d1e1l3o2r1/SGVsbG8sIFdvcmxkIQ==")]
     public async Task ProcessText_WithText_ShouldReturnEmptyResult(string sourceText, string expectedResult)
     {
         //Arrange
