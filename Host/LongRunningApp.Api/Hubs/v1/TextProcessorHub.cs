@@ -1,26 +1,22 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using LongRunningApp.Api.Services;
+using Microsoft.AspNetCore.SignalR;
 
 namespace LongRunningApp.Api.Hubs.v1;
 
-public sealed class TextProcessorHub : Hub
+public sealed class TextProcessorHub(
+    ILogger<TextProcessorHub> logger,
+    ITextProcessorService textProcessorService) : Hub
 {
-    private readonly ILogger<TextProcessorHub> _logger;
-
-    public TextProcessorHub(ILogger<TextProcessorHub> logger)
-    {
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-    }
 
     [HubMethodName(HubNames.ProcessTextRequest)]
-    public async Task ProcessText(string connectionId, string text)
+    public async Task ProcessText(string text)
     {
-        _logger.LogInformation($"Receive text [{text}] from connection id [{connectionId}]");
-        await Clients.Client(connectionId).SendAsync(HubNames.ProcessTextResponse, text);
+        logger.LogInformation($"Receive text [{text}] from connection id [{Context.ConnectionId}]");
+        await textProcessorService.StartProcessingTextAsync(Context.ConnectionId, text);
     }
 
     public string GetConnectionId()
     {
         return Context.ConnectionId;
     }
-
 }

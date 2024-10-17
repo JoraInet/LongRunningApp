@@ -1,17 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using LongRunningApp.Infrastructure.Models;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Configuration;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Testing.Platform.Builder;
-using LongRunningApp.Infrastructure.Models;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Caching.Distributed;
-using Microsoft.Extensions.Caching.StackExchangeRedis;
 
 namespace LongRunningApp.Infrastructure.UnitTests;
 

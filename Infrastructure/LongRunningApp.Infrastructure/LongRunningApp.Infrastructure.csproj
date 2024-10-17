@@ -22,4 +22,8 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\LongRunningApp.Shared.Extensions\LongRunningApp.Shared.Extensions.csproj" />
+  </ItemGroup>
+
 </Project>

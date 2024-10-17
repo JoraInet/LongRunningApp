@@ -1,5 +1,9 @@
 
 export interface IProcessTextRequest {
-  ConnectionId: string;
-  Text: string;
+  connectionId: string;
+  text: string;
+}
+
+export interface ICancelProcessTextRequest {
+  processId: string;
 }

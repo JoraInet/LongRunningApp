@@ -61,6 +61,15 @@ namespace LongRunningApp.Api.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Error while cancelling processing text..
+        /// </summary>
+        internal static string CancelProcessingTextError {
+            get {
+                return ResourceManager.GetString("CancelProcessingTextError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Conection Id for processing is empty..
         /// </summary>
         internal static string ConectionIdForProcessingIsEmpty {
@@ -70,11 +79,11 @@ namespace LongRunningApp.Api.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Error while processing text..
+        ///   Looks up a localized string similar to Error while staring processing text..
         /// </summary>
-        internal static string ProcessingTextError {
+        internal static string StartProcessingTextError {
             get {
-                return ResourceManager.GetString("ProcessingTextError", resourceCulture);
+                return ResourceManager.GetString("StartProcessingTextError", resourceCulture);
             }
         }
         

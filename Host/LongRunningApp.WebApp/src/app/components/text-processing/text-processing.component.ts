@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
 import { TextProcessorHubConnectionService } from '../../../services/hub-connections/v1/text-processor-hub-connection.service';
 import { TextProcessorApiConnectionService } from '../../../services/api-connections/v1/text-processor-api-connection.service';
+import { IProcessTextResponse } from "../../../models/v1/response.api.models";
+import { IProcessingText } from '../../../models/v1/response.hub.models';
 
 @Component({
   selector: 'text-processing',
@@ -10,21 +11,32 @@ import { TextProcessorApiConnectionService } from '../../../services/api-connect
   styleUrl: './text-processing.component.css',
 })
 export class TextProcessingComponent implements OnInit {
+  
   processedText: string = '';
   responseResult: string[] = [];
   processing: boolean = false;
+  processId: string = '';
+  progress: number = 0;
 
   constructor(
     private textProcessorHub: TextProcessorHubConnectionService,
-    private textProcessorApi: TextProcessorApiConnectionService
+    private textProcessorApi: TextProcessorApiConnectionService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit() {
     
     this.textProcessorHub.startConnection();
-    this.textProcessorHub.addListener((responseText: string) => {
-      this.responseResult.push(responseText);
+    this.textProcessorHub.addListenerProcessTextResponse((response: IProcessingText) => {
+      this.responseResult.push(response.text);
+      this.progress = Math.min(response.progressPercentage, 100);
+      if(this.progress == 100 && this.processing)
+      {
+        this.processing = false;
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Process has completed.' });
+      }
     });
+
   }
 
   get concatenatedData(): string {
@@ -34,24 +46,41 @@ export class TextProcessingComponent implements OnInit {
   sendProcessingText() {
 
     this.responseResult = [];
-    this.processing = true;
+    this.progress = 0;
 
-    const Text = this.processedText;
-    const ConnectionId = this.textProcessorHub.connectionId;
+    const text = this.processedText;
+    const connectionId = this.textProcessorHub.connectionId;
 
-    this.textProcessorApi.sendProcessTextRequest({ ConnectionId, Text })
+    this.textProcessorApi.sendProcessTextRequest({ connectionId, text })
       .subscribe(
         response => {
-          //console.log('TextProcessingComponent - Response:', response);
-          //console.log(this.responseResult);
+          this.processing = true;
+          this.processId = response.processId;
+          this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Process is running.' });
         },
-        error => console.error('TextProcessingComponent - Error:', error),
-        () => { this.processing = false; }
-      );
+        (error : IProcessTextResponse) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: error.errorMessage });
+        });
   }
 
   cancelProcessingText() {
-    this.textProcessorApi.cancelRequest();
+    if(this.processId === '')
+    {
+      return;
+    }
+    const processId = this.processId;
+    this.textProcessorApi.sendCancelProcessTextRequest({ processId })
+    .subscribe(
+      response => {
+        this.processId = '';
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Process has canceled.' });
+        
+      },
+      (error : IProcessTextResponse) => {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: error.errorMessage });
+      },
+      () => { this.processing = false; }
+    );
   }
 
 }

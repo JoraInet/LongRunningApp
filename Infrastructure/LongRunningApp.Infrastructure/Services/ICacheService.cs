@@ -1,9 +1,7 @@
 ﻿
-namespace LongRunningApp.Infrastructure.Services
+namespace LongRunningApp.Infrastructure.Services;
+public interface ICacheService
 {
-    public interface ICacheService
-    {
-        Task<string> ReadFromCacheAsync(string cacheKey);
-        Task WriteToCacheAsync(string cacheKey, string value);
-    }
+    Task<string> ReadFromCacheAsync(string cacheKey);
+    Task WriteToCacheAsync(string cacheKey, string value);
 }

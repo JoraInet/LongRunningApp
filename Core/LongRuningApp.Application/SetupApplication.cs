@@ -1,4 +1,5 @@
-﻿using LongRunningApp.Application.Models;
+﻿using LongRunningApp.Application.Managers;
+using LongRunningApp.Application.Models;
 using LongRunningApp.Application.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +14,7 @@ public static class SetupApplication
         AddAppLayerConfiguration(builder);
 
         builder.Services.AddSingleton<ITextProcessingService, TextProcessingService>();
+        builder.Services.AddSingleton(typeof(IProcessingTasksManager<>), typeof(ProcessingTasksManager<>));
 
         return builder;
     }

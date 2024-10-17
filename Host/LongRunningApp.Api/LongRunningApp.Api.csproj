@@ -23,6 +23,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\LongRuningApp.Application\LongRunningApp.Application.csproj" />
     <ProjectReference Include="..\..\Infrastructure\LongRunningApp.Infrastructure\LongRunningApp.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Shared\LongRunningApp.Shared.Extensions\LongRunningApp.Shared.Extensions.csproj" />
   </ItemGroup>
 
   <ItemGroup>

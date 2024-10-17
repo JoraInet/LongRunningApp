@@ -123,10 +123,13 @@
   <data name="UnexpectedServerErrorWithId" xml:space="preserve">
     <value>While processing requst an unexpected error occured. Error id:{0}</value>
   </data>
-  <data name="ProcessingTextError" xml:space="preserve">
-    <value>Error while processing text.</value>
+  <data name="StartProcessingTextError" xml:space="preserve">
+    <value>Error while staring processing text.</value>
   </data>
   <data name="ConectionIdForProcessingIsEmpty" xml:space="preserve">
     <value>Conection Id for processing is empty.</value>
+  </data>
+  <data name="CancelProcessingTextError" xml:space="preserve">
+    <value>Error while cancelling processing text.</value>
   </data>
 </root>

@@ -1,13 +1,19 @@
 <div class="grid" style="margin-left:10px; margin-right:10px">
     <div class="col">
             <div class="field grid">
-                <label class="col-fixed" for=" processingText">Text</label>
-                <div class="col">
+                <label class="col-fixed" for="processingText">Text</label>
+                <div class="col" style="padding-left: 4%;">
                     <input pInputText
                            id="processingText"
                            type="text"
                            [(ngModel)]="processedText"
                            style="width:100%" />
+                </div>
+            </div>
+            <div class="field grid" *ngIf="processing">
+                <label class="col-fixed" for="processingBar">Progress</label>
+                <div class="col" id="processingBar">
+                    <progress-bar [value]="progress"></progress-bar>
                 </div>
             </div>
     </div>
@@ -27,19 +33,21 @@
 
             </div>
         </div>
-
     </div>
 </div>
 <div class="grid" style="margin-left:10px; margin-right:10px">
     <div class="col">
         <div class="field grid">
             <label class="col-fixed" for="resultText">Result</label>
-            <div class="col">
-                <label id="resultText">{{ concatenatedData }}</label>
+            <div class="col" style="padding-left: 2.5%;">
+                <input pInputText
+                           id="resultText"
+                           type="text"
+                           [(ngModel)]="concatenatedData"
+                           style="width:100%"
+                           readonly />
             </div>
         </div>
     </div>
-    <div class="col-3">
-
-    </div>
+    <div class="col-3"></div>
 </div>

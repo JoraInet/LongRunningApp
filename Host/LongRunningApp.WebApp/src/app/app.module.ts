@@ -7,12 +7,16 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
 import { TextProcessingComponent } from './components/text-processing/text-processing.component';
+import { ProgressBarComponent } from './components-shared/progress-bar/progress-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TextProcessingComponent
+    TextProcessingComponent,
+    ProgressBarComponent
   ],
   imports: [
     HttpClientModule,
@@ -21,9 +25,10 @@ import { TextProcessingComponent } from './components/text-processing/text-proce
     BrowserAnimationsModule,
     AppRoutingModule,
     InputTextModule,
-    ButtonModule
+    ButtonModule,
+    ToastModule
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

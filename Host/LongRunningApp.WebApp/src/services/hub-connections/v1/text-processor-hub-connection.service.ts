@@ -1,6 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
+import { IProcessingText } from '../../../models/v1/response.hub.models';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +28,8 @@ export class TextProcessorHubConnectionService {
       .catch(err => console.log('TextProcessorHub: error while starting connection [' + err + ']'));
   }
 
-  public addListener(callback: (data: string) => void) {
+  public addListenerProcessTextResponse(callback: (data: IProcessingText) => void) {
     this.hubConnection?.on('ProcessTextResponse', callback);
   }
-  
+
 }

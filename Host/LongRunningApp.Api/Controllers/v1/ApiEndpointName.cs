@@ -8,6 +8,7 @@ public static class ApiEndpointNames
 
     public static class ControllersActions
     {
-        public const string ProcessText = "process-text";
+        public const string StartProcess = "start-process";
+        public const string CancelProcess = "cancel-process";
     }
 }

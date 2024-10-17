@@ -9,27 +9,39 @@ public sealed class TextProcessingService(IOptions<AppLayerSettings> options) : 
 {
     private readonly AppLayerSettings _layerSettings = options.Value;
 
-    public async IAsyncEnumerable<string> ProcessText(string text, [EnumeratorCancellation] CancellationToken cancellation = default)
+    public async IAsyncEnumerable<ITextProcessingResult> ProcessText(
+        ITextProcessingRequest request,
+        IProgress<int> progress,
+        [EnumeratorCancellation] CancellationToken cancellation = default)
     {
-        if (string.IsNullOrWhiteSpace(text) || cancellation.IsCancellationRequested)
+        ArgumentNullException.ThrowIfNull(nameof(request));
+        ArgumentNullException.ThrowIfNull(nameof(progress));
+
+        if (string.IsNullOrWhiteSpace(request.Text) || cancellation.IsCancellationRequested)
         {
-            yield return string.Empty;
+            yield return TextProcessingResult.Empty;
             yield break;
         }
 
-        var performedText = PerformedText(text);
+        var performedText = PerformedText(request.Text);
         var random = new Random();
-        foreach (var p in performedText)
+
+        for (var i = 0; i < performedText.Length; i++)
         {
             if (cancellation.IsCancellationRequested)
             {
-                yield return string.Empty;
+                yield return TextProcessingResult.Empty;
                 yield break;
             }
 
             await Task.Delay(random.Next(0, _layerSettings.DelayEmulationMaxSec * 1000));
-
-            yield return p.ToString();
+            var currentProgress = Math.Max(1, ((i + 1) * 100) / performedText.Length);
+            progress.Report(currentProgress);
+            yield return new TextProcessingResult()
+            {
+                Text = performedText[i].ToString(),
+                ProgressPercentage = currentProgress
+            };
         }
     }
 

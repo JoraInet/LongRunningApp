@@ -1,6 +1,10 @@
 ﻿
+using LongRunningApp.Application.Models;
+
 namespace LongRunningApp.Application.Services;
 public interface ITextProcessingService
 {
-    IAsyncEnumerable<string> ProcessText(string text, CancellationToken cancellation = default);
+    IAsyncEnumerable<ITextProcessingResult> ProcessText(ITextProcessingRequest request,
+                                                        IProgress<int> progress,
+                                                        CancellationToken cancellation = default);
 }
