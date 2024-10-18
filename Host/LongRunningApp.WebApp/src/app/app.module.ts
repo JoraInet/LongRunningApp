@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient  } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,7 +19,6 @@ import { ProgressBarComponent } from './components-shared/progress-bar/progress-
     ProgressBarComponent
   ],
   imports: [
-    HttpClientModule,
     BrowserModule,
     FormsModule,
     BrowserAnimationsModule,
@@ -28,7 +27,7 @@ import { ProgressBarComponent } from './components-shared/progress-bar/progress-
     ButtonModule,
     ToastModule
   ],
-  providers: [MessageService],
+  providers: [MessageService, provideHttpClient()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

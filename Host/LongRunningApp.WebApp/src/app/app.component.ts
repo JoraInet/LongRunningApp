@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { TextProcessingComponent } from './components/text-processing/text-processing.component';
-import { AppModule } from './app.module';
 
 @Component({
   selector: 'app-root',
