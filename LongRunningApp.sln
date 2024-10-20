@@ -15,13 +15,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LongRunningApp.Api", "Host\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".SolutionItems", ".SolutionItems", "{374615A5-FD98-45C2-9FFF-2C4290DD3D45}"
 	ProjectSection(SolutionItems) = preProject
-		.editorconfig = .editorconfig
 		Directory.Packages.props = Directory.Packages.props
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LongRunningApp.Api.IntegrationTests", "Tests\LongRunningApp.Api.IntegrationTests\LongRunningApp.Api.IntegrationTests.csproj", "{130D9AE1-0E7F-452D-B2BA-56E85175ED3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LongRunningApp.Application", "Core\LongRuningApp.Application\LongRunningApp.Application.csproj", "{F86D4087-7A27-4C90-A08C-FDF88F6AF266}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LongRunningApp.Application", "Core\LongRunningApp.Application\LongRunningApp.Application.csproj", "{F86D4087-7A27-4C90-A08C-FDF88F6AF266}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LongRunningApp.Application.UnitTests", "Tests\LongRunningApp.Application.UnitTests\LongRunningApp.Application.UnitTests.csproj", "{3CD79C2E-5622-42FA-9926-C12A2E925D79}"
 EndProject
@@ -38,6 +37,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LongRunningApp.Shared.UnitTests", "Shared\LongRunningApp.Shared.UnitTests\LongRunningApp.Shared.UnitTests.csproj", "{361A209B-74D5-4C97-9D53-B3B31CA5EC31}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LongRunningApp.Shared.Extensions", "Shared\LongRunningApp.Shared.Extensions\LongRunningApp.Shared.Extensions.csproj", "{0687EC4E-6DFB-434E-A575-1EBC67B8A449}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".Deployment", ".Deployment", "{77B96191-6318-47DA-AE0B-36C6CAC58E69}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		DeploymentReadme.txt = DeploymentReadme.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

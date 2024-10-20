@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\LongRuningApp.Application\LongRunningApp.Application.csproj" />
+    <ProjectReference Include="..\..\Core\LongRunningApp.Application\LongRunningApp.Application.csproj" />
     <ProjectReference Include="..\..\Shared\LongRunningApp.Shared.UnitTests\LongRunningApp.Shared.UnitTests.csproj" />
   </ItemGroup>
 

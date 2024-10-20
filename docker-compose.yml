@@ -1,0 +1,45 @@
+
+services:
+  redis:
+    image: "redis:latest"
+    container_name: "redis"
+    ports:
+      - "6379:6379"
+
+  longrunningapp.webapp:
+    build:
+      context: Host/LongRunningApp.WebApp/
+      dockerfile: Dockerfile
+    container_name: "LongRunningApp.WebApp"
+    image: "longrunningapp.webapp:dev"
+    ports:
+      - "4200:4200"
+    networks:
+      - my-network
+
+  longrunningapp.api:
+    build:
+      dockerfile: Host/LongRunningApp.Api/Dockerfile
+    container_name: "LongRunningApp.Api"
+    image: "longrunningapp.api:dev"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8080
+      - ASPNETCORE_HTTPS_PORTS=8081
+    volumes:
+    - ${USERPROFILE}\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
+    - ${USERPROFILE}\AppData\Roaming\Microsoft\UserSecrets:/home/app/.microsoft/usersecrets:ro
+    - ${USERPROFILE}\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
+    - ${USERPROFILE}\AppData\Roaming\ASP.NET\Https:/home/app/.aspnet/https:ro
+  
+    ports:
+      - "7145:8080"
+      - "7146:8081"
+    depends_on:
+      - redis
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
