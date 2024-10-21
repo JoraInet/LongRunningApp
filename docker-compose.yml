@@ -25,16 +25,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
-      - ASPNETCORE_HTTPS_PORTS=8081
-    volumes:
-    - ${USERPROFILE}\AppData\Roaming\Microsoft\UserSecrets:/root/.microsoft/usersecrets:ro
-    - ${USERPROFILE}\AppData\Roaming\Microsoft\UserSecrets:/home/app/.microsoft/usersecrets:ro
-    - ${USERPROFILE}\AppData\Roaming\ASP.NET\Https:/root/.aspnet/https:ro
-    - ${USERPROFILE}\AppData\Roaming\ASP.NET\Https:/home/app/.aspnet/https:ro
   
     ports:
       - "7145:8080"
-      - "7146:8081"
     depends_on:
       - redis
     networks:

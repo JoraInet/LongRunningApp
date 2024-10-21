@@ -10,7 +10,7 @@ import { Injectable } from "@angular/core";
 
 export class TextProcessorApiConnectionService {
 
-  private apiPrefix: string = 'https://localhost:7146/api/v1/text-processor/';
+  private apiPrefix: string = 'http://localhost:7145/api/v1/text-processor/';
 
   constructor(private http: HttpClient) { }
 

@@ -9,7 +9,7 @@ import { IProcessingText } from '../../../models/v1/response.hub.models';
 
 export class TextProcessorHubConnectionService {
 
-  private hubName: string = 'https://localhost:7146/hubs/v1/TextProcessor';
+  private hubName: string = 'http://localhost:7145/hubs/v1/TextProcessor';
   private hubConnection: signalR.HubConnection | undefined;
   public connectionId: string = '';
 
