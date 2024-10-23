@@ -9,11 +9,13 @@ public static class SetupInfrastructure
 {
     public static IHostApplicationBuilder ConfigureInfrastructureLayer(this IHostApplicationBuilder builder)
     {
+
         AddInfrastructureLayerConfiguration(builder);
 
+        var envRedisConnection = Environment.GetEnvironmentVariable("InfrastructureLayerSettings__RedisConnectionString");
         builder.Services.AddStackExchangeRedisCache(options =>
         {
-            options.Configuration = builder.Configuration.GetSection("InfrastructureLayerSettings:RedisConnectionString").Value;
+            options.Configuration = envRedisConnection ?? builder.Configuration.GetSection("InfrastructureLayerSettings:RedisConnectionString").Value;
         });
 
         builder.Services.AddSingleton<ICacheService, CacheService>();

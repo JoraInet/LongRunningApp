@@ -1,6 +1,6 @@
 {
   "InfrastructureLayerSettings": {
-    "UseRedisCache": false,
+    "UseRedisCache": true,
     "RedisConnectionString": "localhost:6379"
   }
 }

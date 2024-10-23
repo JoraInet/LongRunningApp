@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { TextProcessorHubConnectionService } from '../../../services/hub-connections/v1/text-processor-hub-connection.service';
 import { TextProcessorApiConnectionService } from '../../../services/api-connections/v1/text-processor-api-connection.service';
@@ -17,6 +17,11 @@ export class TextProcessingComponent implements OnInit {
   processing: boolean = false;
   processId: string = '';
   progress: number = 0;
+
+  @HostListener('window:beforeunload', ['$event'])
+  unloadHandler(event: Event) {
+    this.cancelProcessingText();
+  }
 
   constructor(
     private textProcessorHub: TextProcessorHubConnectionService,
@@ -50,15 +55,16 @@ export class TextProcessingComponent implements OnInit {
 
     const text = this.processedText;
     const connectionId = this.textProcessorHub.connectionId;
+    this.processing = true;
 
     this.textProcessorApi.sendProcessTextRequest({ connectionId, text })
       .subscribe(
         response => {
-          this.processing = true;
           this.processId = response.processId;
           this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Process is running.' });
         },
         (error : IProcessTextResponse) => {
+          this.processing = false;
           this.messageService.add({ severity: 'error', summary: 'Error', detail: error.errorMessage });
         });
   }

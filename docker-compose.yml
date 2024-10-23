@@ -5,6 +5,8 @@ services:
     container_name: "redis"
     ports:
       - "6379:6379"
+    networks:
+       - my-network 
 
   longrunningapp.webapp:
     build:
@@ -25,7 +27,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8080
-  
+      - InfrastructureLayerSettings__RedisConnectionString=redis:6379
     ports:
       - "7145:8080"
     depends_on:

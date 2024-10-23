@@ -30,7 +30,12 @@ public sealed class TextProcessorService(
         var cacheValue = await cache.ReadFromCacheAsync(text);
         if (!string.IsNullOrEmpty(cacheValue))
         {
-            await processingTextHubContext.Clients.Client(connectionId).SendAsync(HubNames.ProcessTextResponse, cacheValue);
+            var response = new ProcessingTextResponse()
+            {
+                Text = cacheValue,
+                ProgressPercentage = 100
+            };
+            await processingTextHubContext.Clients.Client(connectionId).SendAsync(HubNames.ProcessTextResponse, response);
             logger.LogTrace($"Result [{cacheValue}] for text [{text}] read from cache and has already sent to connection id [{connectionId}].");
             return Guid.Empty;
         }
