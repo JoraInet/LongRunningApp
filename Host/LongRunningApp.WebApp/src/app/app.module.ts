@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { provideHttpClient  } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -11,6 +11,10 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { TextProcessingComponent } from './components/text-processing/text-processing.component';
 import { ProgressBarComponent } from './components-shared/progress-bar/progress-bar.component';
+import { provideStore } from '@ngrx/store';
+import { reducers, metaReducers } from './reducers';
+import { provideEffects } from '@ngrx/effects';
+import { TextProcessingEffects } from './effects/text-processing.effects';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,12 @@ import { ProgressBarComponent } from './components-shared/progress-bar/progress-
     ButtonModule,
     ToastModule
   ],
-  providers: [MessageService, provideHttpClient()],
+  providers: [
+    MessageService, 
+    provideHttpClient(),
+    provideStore(reducers, {metaReducers}),
+    provideEffects([TextProcessingEffects])
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

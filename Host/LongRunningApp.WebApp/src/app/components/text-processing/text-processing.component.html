@@ -29,6 +29,7 @@
             <div class="flex align-items-center justify-content-center">
                 <p-button label="Cancel"
                           (onClick)="cancelProcessingText()"
+                          [disabled]="!processing"
                           icon="pi pi-times" />
 
             </div>
@@ -43,7 +44,7 @@
                 <input pInputText
                            id="resultText"
                            type="text"
-                           [(ngModel)]="concatenatedData"
+                           [(ngModel)]="responseResult"
                            style="width:100%"
                            readonly />
             </div>
