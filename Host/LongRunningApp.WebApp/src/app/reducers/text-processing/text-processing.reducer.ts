@@ -20,9 +20,13 @@ export const initialState: TextProcessingState = {
 export const textProcessingReducer = createReducer<TextProcessingState>(
   initialState,
   on(TextProcessingLoaded, (state, action) => {
-    return {...state, 
-      processId: ProcessIdReceived({ processId: action.response.processId}), 
-      isInProgress: true };
+    if (action.response.processId === '00000000-0000-0000-0000-000000000000') {
+      return {...state};
+    } else {
+      return {...state, 
+        processId: ProcessIdReceived({ processId: action.response.processId}), 
+        isInProgress: true };
+    }
   }),
   on(TextProcessingLoadFailed, (state, action) => {
     return {...state, 

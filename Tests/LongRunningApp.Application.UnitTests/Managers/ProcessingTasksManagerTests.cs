@@ -6,7 +6,7 @@ namespace LongRunningApp.Application.UnitTests.Managers;
 public sealed class ProcessingTasksManagerTests
 {
     private Mock<ILogger<ProcessingTasksManager<ITestData>>> _loggerMock;
-    private int taskDelay = 500;
+    private readonly int taskDelay = 500;
 
     [TestInitialize]
     public void TestInitialize()

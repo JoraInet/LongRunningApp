@@ -20,7 +20,7 @@ public class TextProcessorController(
     [ProducesResponseType(StatusCodes.Status202Accepted)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<ActionResult<ProcessTextResponse>> ProcessText([FromBody] ProcessTextRequest request, CancellationToken cancellationToken)
+    public async Task<ActionResult<ProcessTextResponse>> ProcessText([FromBody] ProcessTextRequest request)
     {
         if (logger.LogErrorIfNullOrWhiteSpace(request.ConnectionId, nameof(request.ConnectionId)))
         {
@@ -32,7 +32,8 @@ public class TextProcessorController(
             return BadRequest(ProcessTextResponse.EmptyWithErrorMessage(Resource.TextForProcessingIsEmpty));
         }
 
-        logger.LogTrace($"Requested run new text processing task. ConnectionId:[{request.ConnectionId}]; Text:[{request.Text}].");
+        logger.LogTrace("Requested run new text processing task. ConnectionId:[{request.ConnectionId}]; Text:[{request.Text}].",
+                        request.ConnectionId, request.Text);
 
         Guid processId;
         try

@@ -13,12 +13,12 @@ namespace LongRunningApp.Api.IntegrationTests.Controllers.v1;
 [TestClass]
 public sealed class TextProcessorControllerTests
 {
-    private static string ProcessTextRequestUrl = @$"/api/v1/{ApiEndpointNames.Controllers.TextProcessor}/{ApiEndpointNames.ControllersActions.StartProcess}";
-    private static string CancelProcessTextRequestUrl = @$"/api/v1/{ApiEndpointNames.Controllers.TextProcessor}/{ApiEndpointNames.ControllersActions.CancelProcess}";
+    private static readonly string ProcessTextRequestUrl = @$"/api/v1/{ApiEndpointNames.Controllers.TextProcessor}/{ApiEndpointNames.ControllersActions.StartProcess}";
+    private static readonly string CancelProcessTextRequestUrl = @$"/api/v1/{ApiEndpointNames.Controllers.TextProcessor}/{ApiEndpointNames.ControllersActions.CancelProcess}";
 
     private WebApplicationFactory<Program> _factory;
     private HttpClient _client;
-    private Mock<ITextProcessorService> _textProcessorServiceMock = new Mock<ITextProcessorService>();
+    private Mock<ITextProcessorService> _textProcessorServiceMock = new();
 
     [TestInitialize]
     public void TestInitialize()
@@ -154,7 +154,7 @@ public sealed class TextProcessorControllerTests
 
 
     private static StringContent ProcessTextCreateRequestBody(ProcessTextRequest request)
-        => new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
+        => new(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
 
     private static async Task<ProcessTextResponse?> ProcessTextGetResponseBody(HttpResponseMessage httpResponse)
         => await httpResponse.Content.ReadFromJsonAsync<ProcessTextResponse>();

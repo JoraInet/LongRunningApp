@@ -14,8 +14,8 @@ public sealed class TextProcessingService(IOptions<AppLayerSettings> options) : 
         IProgress<int> progress,
         [EnumeratorCancellation] CancellationToken cancellation = default)
     {
-        ArgumentNullException.ThrowIfNull(nameof(request));
-        ArgumentNullException.ThrowIfNull(nameof(progress));
+        ArgumentNullException.ThrowIfNull(request, nameof(request));
+        ArgumentNullException.ThrowIfNull(progress, nameof(progress));
 
         if (string.IsNullOrWhiteSpace(request.Text) || cancellation.IsCancellationRequested)
         {

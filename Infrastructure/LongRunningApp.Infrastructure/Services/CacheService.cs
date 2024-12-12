@@ -10,7 +10,7 @@ public sealed class CacheService(
     IOptions<InfrastructureLayerSettings> options,
     IDistributedCache cache) : ICacheService
 {
-    private InfrastructureLayerSettings _infrastructureLayerSettings = options?.Value ?? throw new ArgumentNullException(nameof(options));
+    private readonly InfrastructureLayerSettings _infrastructureLayerSettings = options?.Value ?? throw new ArgumentNullException(nameof(options));
     public async Task<string> ReadFromCacheAsync(string cacheKey)
     {
         if (logger.LogErrorIfNullOrWhiteSpace(cacheKey, nameof(cache)) || !_infrastructureLayerSettings.UseRedisCache)
